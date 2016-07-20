@@ -17,10 +17,15 @@ using namespace emscripten;
 // 2. Run "emconfigure ./configure --disable-shared"
 // 3. Run "emmake make -k". -k is for variant when you don't have gflags/gtest
 // checked out
-// 4. Run "em++ --bind -Oz --closure 1 -s FORCE_FILESYSTEM=0  -s
-// BUILD_AS_WORKER=0   -o vcdiff.js ems_binding.cc -Isrc .libs/libvcddec.a
+// 4. Run "em++ --bind -O1 --closure 2 -o vcdiff.js ems_binding.cc -Isrc .libs/libvcddec.a
 // .libs/libvcdcom.a"
 // 5. Use vcdiff.js
+//
+// NB: If you are going to use it in browser WebWorker you can't use -O2 and
+// above. It wouldn't work for whatever reason. Use "-O1 -closure 2" for
+// minification. "TypeError: Module.VCDiffStreamingDecoder is not a constructor(…)"
+//
+// However it will work in node.js with higher optimization options.
 //
 // Example of usage:
 //
