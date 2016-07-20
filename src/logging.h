@@ -23,14 +23,25 @@ namespace open_vcdiff {
 
 extern bool g_fatal_error_occurred;
 
+class Eater {
+public:
+  template<typename T>
+  Eater& operator<<(T) {
+    return *this;
+  }
+};
+
 inline void CheckFatalError() {
   if (g_fatal_error_occurred) {
-    std::cerr.flush();
+    // std::cerr.flush();
     exit(1);
   }
 }
 
+
 }  // namespace open_vcdiff
+
+#if 0
 
 #define VCD_WARNING std::cerr << "WARNING: "
 #define VCD_ERROR std::cerr << "ERROR: "
@@ -43,5 +54,16 @@ inline void CheckFatalError() {
 
 #define VCD_ENDL std::endl; \
                  open_vcdiff::CheckFatalError();
+
+#else  // if 0
+
+#define VCD_WARNING Eater()
+#define VCD_ERROR Eater()
+#define VCD_DFATAL VCD_ERROR
+#define VCD_ENDL "\n";
+
+#endif
+
+
 
 #endif  // OPEN_VCDIFF_LOGGING_H_
