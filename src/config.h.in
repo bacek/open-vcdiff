@@ -34,3 +34,4 @@
 /* Use custom compare function instead of memcmp */
 #cmakedefine VCDIFF_USE_BLOCK_COMPARE_WORDS
 
+#cmakedefine VCDIFF_NO_STD_CERR

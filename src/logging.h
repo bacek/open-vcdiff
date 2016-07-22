@@ -41,7 +41,7 @@ inline void CheckFatalError() {
 
 }  // namespace open_vcdiff
 
-#if 0
+#ifndef VCDIFF_NO_STD_CERR
 
 #define VCD_WARNING std::cerr << "WARNING: "
 #define VCD_ERROR std::cerr << "ERROR: "
@@ -55,12 +55,12 @@ inline void CheckFatalError() {
 #define VCD_ENDL std::endl; \
                  open_vcdiff::CheckFatalError();
 
-#else  // if 0
+#else  // ifndef VCDIFF_NO_STD_CERR
 
 #define VCD_WARNING Eater()
 #define VCD_ERROR Eater()
-#define VCD_DFATAL VCD_ERROR
-#define VCD_ENDL "\n";
+#define VCD_DFATAL Eater()
+#define VCD_ENDL "";
 
 #endif
 

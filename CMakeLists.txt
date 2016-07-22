@@ -43,6 +43,10 @@ check_function_exists (memalign HAVE_MEMALIGN)
 check_function_exists (posix_memalign HAVE_POSIX_MEMALIGN)
 check_function_exists (mprotect HAVE_MPROTECT)
 
+if (vcdiff_build_js)
+  set (VCDIFF_NO_STD_CERR ON)
+endif()
+
 configure_file (${PROJECT_SOURCE_DIR}/src/config.h.in ${PROJECT_BINARY_DIR}/config.h)
 include_directories ("${PROJECT_BINARY_DIR}")
 
