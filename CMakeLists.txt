@@ -4,6 +4,10 @@ cmake_minimum_required (VERSION 2.8.12)
 option(vcdiff_build_tests "Build all of vcdiff tests." ON)
 option(vcdiff_build_exec "Build vcdiff exectuable" ON)
 
+# To build javascript version you have to run it through emcmake and emmake
+# TODO Check that we can detect it automatically
+option(vcdiff_build_js "Build vcdiff.js" OFF)
+
 # Add subprojects first so we won't interfere with config.h.in
 
 if (vcdiff_build_exec)
@@ -200,3 +204,20 @@ if (vcdiff_build_tests)
   target_link_libraries (jsonwriter_test vcdenc vcdcom gtest_main)
   add_test (jsonwriter_test jsonwriter_test)
 endif ()  # vcdiff_build_tests
+
+if (vcdiff_build_js)
+  # em++ --bind -O1 --closure 2 -o vcdiff.js ems_binding.cc -Isrc .libs/libvcddec.a .libs/libvcdcom.a
+  # target_link_libraries(vcdiff.js vcddec vcdcom)
+  add_custom_command (
+    OUTPUT vcdiff.js
+    COMMAND em++ --bind -O1 --closure 2 -o vcdiff.js
+      ${PROJECT_SOURCE_DIR}/src/ems_binding.cc
+      -I${PROJECT_SOURCE_DIR}/src
+      -I${PROJECT_BUILD_DIR}/src
+      $<TARGET_FILE:vcddec>
+      $<TARGET_FILE:vcdcom>
+    DEPENDS src/ems_binding.cc vcddec vcdcom
+    )
+  add_custom_target (vcdiff_js DEPENDS vcdiff.js)
+
+ENDIF()
