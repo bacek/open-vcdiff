@@ -14,12 +14,9 @@ using namespace emscripten;
 //
 // To compile vcdiff.js from current source you'll need to:
 // 1. Install emscripten SDK from emscripten.org
-// 2. Run "emconfigure ./configure --disable-shared"
-// 3. Run "emmake make -k". -k is for variant when you don't have gflags/gtest
-// checked out
-// 4. Run "em++ --bind -O1 --closure 2 -o vcdiff.js ems_binding.cc -Isrc .libs/libvcddec.a
-// .libs/libvcdcom.a"
-// 5. Use vcdiff.js
+// 2. Run "emcmake -Dvcdiff_build_tests=OFF -Dvcdiff_build_exec=OFF -DBUILD_SHARED_LIBS=OFF -Dvcdiff_build_js=ON"
+// 3. Run "emmake make".
+// 4. Use vcdiff.js
 //
 // NB: If you are going to use it in browser WebWorker you can't use -O2 and
 // above. It wouldn't work for whatever reason. Use "-O1 -closure 2" for
