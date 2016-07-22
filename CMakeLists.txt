@@ -216,8 +216,8 @@ if (vcdiff_build_js)
       -I${PROJECT_BUILD_DIR}/src
       $<TARGET_FILE:vcddec>
       $<TARGET_FILE:vcdcom>
-    DEPENDS src/ems_binding.cc vcddec vcdcom
+      DEPENDS ${PROJECT_SOURCE_DIR}/src/ems_binding.cc vcddec vcdcom
     )
-  add_custom_target (vcdiff_js DEPENDS vcdiff.js)
+  add_custom_target (vcdiff_js ALL DEPENDS vcdiff.js)
 
-ENDIF()
+endif ()
