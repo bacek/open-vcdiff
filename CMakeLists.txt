@@ -219,15 +219,12 @@ if (vcdiff_build_js)
       ${PROJECT_SOURCE_DIR}/src/ems_binding.cc
       -I${PROJECT_SOURCE_DIR}/src
       -I${PROJECT_BUILD_DIR}/src
-      #--pre-js ${PROJECT_SOURCE_DIR}/src/pre.js
-      #--post-js ${PROJECT_SOURCE_DIR}/src/post.js
+      --pre-js ${PROJECT_SOURCE_DIR}/src/pre.js
+      --post-js ${PROJECT_SOURCE_DIR}/src/post.js
       --memory-init-file 0
-      -s MODULARIZE=1
-      -s EXPORT_NAME="'__vcdiff'"
+      -s MODULARIZE=0
       $<TARGET_FILE:vcddec>
       $<TARGET_FILE:vcdcom>
-    COMMAND
-    cat ${PROJECT_SOURCE_DIR}/src/head.js vcdiff.js ${PROJECT_SOURCE_DIR}/src/tail.js > vcdiff.node.js
     DEPENDS ${PROJECT_SOURCE_DIR}/src/ems_binding.cc vcddec vcdcom
     )
   add_custom_target (vcdiff_js ALL DEPENDS vcdiff.js)
